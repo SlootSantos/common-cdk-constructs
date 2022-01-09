@@ -1,0 +1,30 @@
+{
+  "name": "@slootsantos/common-cdk-constructs",
+  "version": "1.1.0",
+  "description": "Common CDK constructs",
+  "scripts": {
+    "deploy": "tsc && npm version minor && npm publish",
+    "build": "tsc"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SlootSantos/common-cdk-constructs.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SlootSantos/common-cdk-constructs/issues"
+  },
+  "homepage": "https://github.com/SlootSantos/common-cdk-constructs#readme",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "devDependencies": {
+    "typescript": "^4.4.3"
+  },
+  "dependencies": {
+    "aws-cdk-lib": "2.3.0",
+    "constructs": "^10.0.0"
+  }
+}
