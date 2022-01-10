@@ -1,9 +1,9 @@
 {
   "name": "@slootsantos/common-cdk-constructs",
-  "version": "1.5.0",
+  "version": "1.0.0",
   "description": "Common CDK constructs",
   "scripts": {
-    "deploy": "tsc && npm version minor && npm publish",
+    "deploy": "tsc && npm version minor && npm publish --access public",
     "build": "tsc"
   },
   "main": "dist/index.js",
@@ -17,6 +17,9 @@
     "url": "https://github.com/SlootSantos/common-cdk-constructs/issues"
   },
   "homepage": "https://github.com/SlootSantos/common-cdk-constructs#readme",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
   "devDependencies": {
     "typescript": "^4.4.3"
   },
