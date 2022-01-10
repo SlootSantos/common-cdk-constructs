@@ -17,9 +17,6 @@
     "url": "https://github.com/SlootSantos/common-cdk-constructs/issues"
   },
   "homepage": "https://github.com/SlootSantos/common-cdk-constructs#readme",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
   "devDependencies": {
     "typescript": "^4.4.3"
   },
