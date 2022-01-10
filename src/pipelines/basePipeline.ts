@@ -54,7 +54,7 @@ interface BasePipelineProps extends StackProps {
     /**
      * Autobuild packages to trigger pipeline releases
      *
-     * @default - none.
+     * @default - {}
      * @stability stable
      */
     autobuilds: Record<string, pipelines.CodePipelineSource>;
@@ -83,7 +83,7 @@ export class BasePipeline {
     scope: Construct,
     name: string,
     input: pipelines.CodePipelineSource,
-    autobuilds: Record<string, pipelines.CodePipelineSource>
+    autobuilds: Record<string, pipelines.CodePipelineSource> = {}
   ) {
     return new pipelines.CodePipeline(scope, name, {
       crossAccountKeys: true,
