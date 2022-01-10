@@ -33,7 +33,7 @@ export declare class ApplicationStack {
   getBuildStep: (
     input: pipelines.CodePipelineSource,
     deployerRole: aws_iam.Role
-  ) => CodeBuildStep;
+  ) => CodeBuildStep | null;
 }
 
 /**
