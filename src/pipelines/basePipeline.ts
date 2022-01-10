@@ -119,9 +119,14 @@ export class BasePipeline {
         stage.requireApproval ? manualApprovalStep : undefined
       );
 
-      pipelineStage.addPost(
-        appStage.getBuildStep(buildInput, stage.targetAccount)
+      const postBuildStep = appStage.getBuildStep(
+        buildInput,
+        stage.targetAccount
       );
+
+      if (postBuildStep) {
+        pipelineStage.addPost(postBuildStep);
+      }
     });
   }
 }
