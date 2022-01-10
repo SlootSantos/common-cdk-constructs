@@ -50,14 +50,14 @@ interface BasePipelineProps extends StackProps {
      * @default - none.
      * @stability stable
      */
-    buildInput: pipelines.CodePipelineSource;
+    buildInput?: pipelines.CodePipelineSource;
     /**
      * Autobuild packages to trigger pipeline releases
      *
      * @default - {}
      * @stability stable
      */
-    autobuilds: Record<string, pipelines.CodePipelineSource>;
+    autobuilds?: Record<string, pipelines.CodePipelineSource>;
   };
 }
 
@@ -99,7 +99,7 @@ export class BasePipeline {
     scope: Construct,
     stages: PipelineStageConfig[],
     application: IApplicationStack,
-    buildInput: pipelines.CodePipelineSource,
+    buildInput: pipelines.CodePipelineSource = null,
     pipeline: pipelines.CodePipeline
   ) {
     const manualApprovalStep = {
