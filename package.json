@@ -1,5 +1,5 @@
 {
-  "name": "@slootsantos/common-cdk-constructs",
+  "name": "@mogli/common-cdk-constructs",
   "version": "1.6.0",
   "description": "Common CDK constructs",
   "scripts": {
