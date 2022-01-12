@@ -5,6 +5,7 @@ import { ApplicationStack, IApplicationStack } from "./types";
 import { pipelineDeployerRole } from "../services/iam/pipelineDeployerRole";
 
 interface BaseStageProps extends StageProps {
+  applicationName: string;
   stack: IApplicationStack;
 }
 
@@ -15,7 +16,7 @@ export class BaseStage extends Stage {
   constructor(scope: Construct, id: string, props: BaseStageProps) {
     super(scope, id, props);
     this.scope = scope;
-    this.stack = new props.stack(this, "API");
+    this.stack = new props.stack(this, props.applicationName);
   }
 
   getBuildStep(input: pipelines.CodePipelineSource, targetAccount: string) {

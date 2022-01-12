@@ -7,6 +7,7 @@ import { IApplicationStack } from "./types";
 interface PipelineStageConfig {
   id: string;
   targetAccount: string;
+  applicationName: string;
   requireApproval?: boolean;
 }
 
@@ -109,6 +110,7 @@ export class BasePipeline {
     stages.forEach((stage) => {
       const appStage = new BaseStage(scope, stage.id, {
         stack: application,
+        applicationName: stage.applicationName,
         env: {
           account: stage.targetAccount,
         },
