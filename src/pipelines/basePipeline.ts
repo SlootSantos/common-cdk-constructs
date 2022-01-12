@@ -66,14 +66,14 @@ export class BasePipeline extends Stack {
   constructor(scope: Construct, id: string, props: BasePipelineProps) {
     super(scope, id, props);
     const pipeline = this.buildPipeline(
-      scope,
+      this,
       props.config.name,
       props.config.mainInput,
       props.config.autobuilds
     );
 
     this.addStages(
-      scope,
+      this,
       props.config.stages,
       props.config.application,
       props.config.buildInput,
