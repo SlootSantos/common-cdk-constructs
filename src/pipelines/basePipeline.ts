@@ -114,7 +114,7 @@ export class BasePipeline {
         applicationName: stage.applicationName,
         env: {
           account: stage.targetAccount,
-          region: cdk.Stack.of(scope).region,
+          region: "eu-central-1",
         },
       });
 
