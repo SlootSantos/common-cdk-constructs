@@ -1,5 +1,5 @@
 import { Construct } from "constructs";
-import { pipelines, StackProps } from "aws-cdk-lib";
+import { pipelines, Stack, StackProps } from "aws-cdk-lib";
 
 import { BaseStage } from "./baseStage";
 import { IApplicationStack } from "./types";
@@ -62,8 +62,9 @@ interface BasePipelineProps extends StackProps {
   };
 }
 
-export class BasePipeline {
+export class BasePipeline extends Stack {
   constructor(scope: Construct, id: string, props: BasePipelineProps) {
+    super(scope, id, props);
     const pipeline = this.buildPipeline(
       scope,
       props.config.name,
