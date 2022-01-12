@@ -11,18 +11,16 @@ interface BaseStageProps extends StageProps {
 
 export class BaseStage extends Stage {
   public stack: ApplicationStack;
-  private scope: Construct;
 
   constructor(scope: Construct, id: string, props: BaseStageProps) {
     super(scope, id, props);
-    this.scope = scope;
     this.stack = new props.stack(this, props.applicationName);
   }
 
   getBuildStep(input: pipelines.CodePipelineSource, targetAccount: string) {
     const targetRoleArn = this.stack.stackCfnOutputs.deploymentRole.value;
     const deployerRole = pipelineDeployerRole(
-      this.scope,
+      this,
       targetRoleArn,
       targetAccount
     );
