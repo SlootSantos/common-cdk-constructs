@@ -21,5 +21,12 @@ export const pipelineDeployerRole = (
     })
   );
 
+  deployerRole.addToPolicy(
+    new aws_iam.PolicyStatement({
+      resources: ["*"],
+      actions: ["ssm:GetParameter"],
+    })
+  );
+
   return deployerRole;
 };
