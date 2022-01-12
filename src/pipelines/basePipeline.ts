@@ -1,3 +1,4 @@
+import * as cdk from "aws-cdk-lib";
 import { Construct } from "constructs";
 import { pipelines, StackProps } from "aws-cdk-lib";
 
@@ -113,6 +114,7 @@ export class BasePipeline {
         applicationName: stage.applicationName,
         env: {
           account: stage.targetAccount,
+          region: cdk.Stack.of(scope).region,
         },
       });
 
