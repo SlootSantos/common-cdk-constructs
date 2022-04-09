@@ -97,8 +97,8 @@ export class BasePipeline {
     prebuildCommands?: string[]
   ) {
     const buildCommands = prebuildCommands?.length
-      ? ["npm ci", ...prebuildCommands, "npm run build", "npx cdk synth"]
-      : ["npm ci", "npm run build", "npx cdk synth"];
+      ? ["pwd", "npm ci", ...prebuildCommands, "npm run build", "npx cdk synth"]
+      : ["pwd", "npm ci", "npm run build", "npx cdk synth"];
 
     return new pipelines.CodePipeline(scope, name, {
       crossAccountKeys: true,
