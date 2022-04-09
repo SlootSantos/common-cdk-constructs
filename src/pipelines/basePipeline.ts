@@ -60,6 +60,13 @@ interface BasePipelineProps extends StackProps {
      * @stability stable
      */
     autobuilds?: Record<string, pipelines.CodePipelineSource>;
+    /**
+     * Commands to execute before the cdk build & synth commands
+     *
+     * @default - none.
+     * @stability stable
+     */
+    prebuildCommands?: string[];
   };
 }
 
@@ -69,7 +76,8 @@ export class BasePipeline {
       scope,
       props.config.name,
       props.config.mainInput,
-      props.config.autobuilds
+      props.config.autobuilds,
+      props.config.prebuildCommands
     );
 
     this.addStages(
@@ -85,14 +93,19 @@ export class BasePipeline {
     scope: Construct,
     name: string,
     input: pipelines.CodePipelineSource,
-    autobuilds: Record<string, pipelines.CodePipelineSource> = {}
+    autobuilds: Record<string, pipelines.CodePipelineSource> = {},
+    prebuildCommands?: string[]
   ) {
+    const buildCommands = prebuildCommands?.length
+      ? ["npm ci", ...prebuildCommands, "npm run build", "npx cdk synth"]
+      : ["npm ci", "npm run build", "npx cdk synth"];
+
     return new pipelines.CodePipeline(scope, name, {
       crossAccountKeys: true,
       synth: new pipelines.ShellStep("Synth", {
         input,
         additionalInputs: autobuilds,
-        commands: ["npm ci", "npm run build", "npx cdk synth"],
+        commands: buildCommands,
       }),
     });
   }
