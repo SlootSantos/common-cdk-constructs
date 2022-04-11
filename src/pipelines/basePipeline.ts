@@ -4,6 +4,7 @@ import { pipelines, StackProps } from "aws-cdk-lib";
 
 import { BaseStage } from "./baseStage";
 import { IApplicationStack } from "./types";
+import { ComputeType } from "aws-cdk-lib/aws-codebuild";
 
 interface PipelineStageConfig {
   id: string;
@@ -103,6 +104,11 @@ export class BasePipeline {
     return new pipelines.CodePipeline(scope, name, {
       crossAccountKeys: true,
       dockerEnabledForSynth: true,
+      codeBuildDefaults: {
+        buildEnvironment: {
+          computeType: ComputeType.LARGE,
+        },
+      },
       synth: new pipelines.ShellStep("Synth", {
         input,
         additionalInputs: autobuilds,
