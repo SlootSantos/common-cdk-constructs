@@ -102,6 +102,7 @@ export class BasePipeline {
 
     return new pipelines.CodePipeline(scope, name, {
       crossAccountKeys: true,
+      dockerEnabledForSynth: true,
       synth: new pipelines.ShellStep("Synth", {
         input,
         additionalInputs: autobuilds,
