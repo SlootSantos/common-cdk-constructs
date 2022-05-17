@@ -135,5 +135,6 @@ export type ResourceBuilder<Resources, Outputs> = (
   scope: Construct,
   getName: (suffix: string) => string,
   stackResources: Resources,
-  stackOutputs: Outputs
+  stackOutputs: Outputs,
+  customBuilderConfig?: Record<string, any>
 ) => void;
