@@ -1,75 +1,13 @@
-import * as cdk from "aws-cdk-lib";
 import { Construct } from "constructs";
-import { pipelines, StackProps } from "aws-cdk-lib";
+import { pipelines } from "aws-cdk-lib";
 
+import {
+  BasePipelineProps,
+  IApplicationStack,
+  PipelineStageConfig,
+} from "./types";
 import { BaseStage } from "./baseStage";
-import { IApplicationStack } from "./types";
 import { ComputeType } from "aws-cdk-lib/aws-codebuild";
-
-interface PipelineStageConfig {
-  id: string;
-  targetAccount: string;
-  applicationName: string;
-  requireApproval?: boolean;
-}
-
-interface BasePipelineProps extends StackProps {
-  config: {
-    /**
-     * Name to deploy the pipeline with.
-     *
-     * @default - none.
-     * @stability stable
-     */
-    name: string;
-    /**
-     * The stages to deploy in the pipeline
-     * stages will deploy the application provided into the targetaccounts provided
-     *
-     * @default - none.
-     * @stability stable
-     */
-    stages: PipelineStageConfig[];
-    /**
-     * Application to be deployed in the individual stages into the targetaccounts provided
-     *
-     * @default - none.
-     * @stability stable
-     */
-    application: IApplicationStack;
-    /**
-     * Main source code input
-     * often will be the CDK package
-     * this source package will be the root directory for following build steps
-     *
-     * @default - none.
-     * @stability stable
-     */
-    mainInput: pipelines.CodePipelineSource;
-    /**
-     * Source code input that should be deployed into created infrastructure
-     * often will be the asset package (nodejs application, go application etc)
-     *
-     * @default - none.
-     * @stability stable
-     */
-    buildInput?: pipelines.CodePipelineSource;
-    /**
-     * Autobuild packages to trigger pipeline releases
-     *
-     * @default - {}
-     * @stability stable
-     */
-    autobuilds?: Record<string, pipelines.CodePipelineSource>;
-    /**
-     * Commands to execute before the cdk build & synth commands
-     *
-     * @default - none.
-     * @stability stable
-     */
-    prebuildCommands?: string[];
-  };
-}
 
 export class BasePipeline {
   constructor(scope: Construct, id: string, props: BasePipelineProps) {
@@ -131,6 +69,7 @@ export class BasePipeline {
     stages.forEach((stage) => {
       const appStage = new BaseStage(scope, stage.id, {
         stack: application,
+        stageConfig: stage,
         applicationName: stage.applicationName,
         env: {
           account: stage.targetAccount,

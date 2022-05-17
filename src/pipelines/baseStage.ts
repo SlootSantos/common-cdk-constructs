@@ -1,12 +1,17 @@
 import { Construct } from "constructs";
 import { pipelines, Stage, StageProps } from "aws-cdk-lib";
 
-import { ApplicationStack, IApplicationStack } from "./types";
+import {
+  ApplicationStack,
+  IApplicationStack,
+  PipelineStageConfig,
+} from "./types";
 import { pipelineDeployerRole } from "../services/iam/pipelineDeployerRole";
 
 interface BaseStageProps extends StageProps {
   applicationName: string;
   stack: IApplicationStack;
+  stageConfig: PipelineStageConfig;
 }
 
 export class BaseStage extends Stage {
@@ -16,7 +21,9 @@ export class BaseStage extends Stage {
   constructor(scope: Construct, id: string, props: BaseStageProps) {
     super(scope, id, props);
     this.scope = scope;
-    this.stack = new props.stack(this, props.applicationName);
+    this.stack = new props.stack(this, props.applicationName, {
+      stageConfig: props.stageConfig,
+    });
   }
 
   getBuildStep(input: pipelines.CodePipelineSource, targetAccount: string) {
