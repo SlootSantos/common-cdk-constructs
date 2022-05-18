@@ -1,6 +1,6 @@
 import { Construct } from "constructs";
 import { CodeBuildStep } from "aws-cdk-lib/pipelines";
-import { aws_iam, CfnOutput, pipelines, StackProps } from "aws-cdk-lib";
+import { aws_iam, CfnOutput, pipelines, StackProps, Stage } from "aws-cdk-lib";
 
 export interface PipelineStageConfig {
   id: string;
@@ -64,6 +64,13 @@ export interface BasePipelineProps extends StackProps {
      * @stability stable
      */
     prebuildCommands?: string[];
+    /**
+     * Global Stages to be added before application stages
+     *
+     * @default - none.
+     * @stability stable
+     */
+    globalStages?: Stage[];
   };
 }
 

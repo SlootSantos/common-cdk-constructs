@@ -1,5 +1,5 @@
 import { Construct } from "constructs";
-import { pipelines } from "aws-cdk-lib";
+import { pipelines, Stage } from "aws-cdk-lib";
 
 import {
   BasePipelineProps,
@@ -19,7 +19,9 @@ export class BasePipeline {
       props.config.prebuildCommands
     );
 
-    this.addStages(
+    this.addGlobalStages(props.config.globalStages, pipeline);
+
+    this.addApplicationStages(
       scope,
       props.config.stages,
       props.config.application,
@@ -55,7 +57,18 @@ export class BasePipeline {
     });
   }
 
-  addStages(
+  addGlobalStages(
+    globalStages: Stage[] | undefined,
+    pipeline: pipelines.CodePipeline
+  ) {
+    if (globalStages?.length) {
+      globalStages.forEach((stage) => {
+        pipeline.addStage(stage);
+      });
+    }
+  }
+
+  addApplicationStages(
     scope: Construct,
     stages: PipelineStageConfig[],
     application: IApplicationStack,
